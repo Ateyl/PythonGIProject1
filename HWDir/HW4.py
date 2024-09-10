@@ -12,3 +12,6 @@ for num in numbers:
         print(f'{num} FIZZ')
     elif num % 5 == 0:
         print(f'{num} BUZZ')
+
+
+print('Test')
