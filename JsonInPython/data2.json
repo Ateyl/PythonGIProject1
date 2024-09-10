@@ -1,0 +1,18 @@
+{
+    "people": [
+        {
+            "name": "Mary Smith",
+            "phone": "777-777-777",
+            "emails": null,
+            "has_licence": true,
+            "salary": 1700
+        },
+        {
+            "name": "Steven Cooke",
+            "phone": null,
+            "emails": "stevencooke@example.com",
+            "has_licence": true,
+            "salary": 2500
+        }
+    ]
+}
