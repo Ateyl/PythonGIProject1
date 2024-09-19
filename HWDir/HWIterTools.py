@@ -23,6 +23,9 @@ def find_pali(strings):
 palindromes = find_pali(strings)
 print(palindromes)
 
+# def palindrome(str_list):
+#     result = filter(lambda w: w == w[::-1], str_list)
+#     print(palindrome)
 
 # Напишите программу которая добавит в новый массив только совершеннолетних
 people = [
@@ -104,6 +107,8 @@ books = [
     }
 ]
 
+# filtered = list(filter(lambda b: b['release'] == 2023, books))
+# result = list(map(lambda b: {b['author']: b['title']}, filtered))
 
 
 def filter_books(books, year):
@@ -268,7 +273,7 @@ cars = [
     },
     {
         "make": "Mercedes-Benz",
-        "model": "C-Class",
+        "model": "C-Class.py",
         "year": 2019,
         "price": 42000,
         "specifications": {
@@ -292,7 +297,7 @@ cars = [
 # Попробуйте оформить каждое задание в виде функции
 # 1. Отфильтруйте бензиновые машины и добавьте в новый список марку и модель
 # пример: ['BMW 520i', 'Audi A5', 'VW Golf']
-
+# petrol = filter(lamb)
 
 def gas_cars(cars):
     return [f"{car['make']} {car['model']}" for car in cars if car['specifications']['fuelType'] == "Gasoline"]
@@ -311,6 +316,8 @@ def more_than_30k(cars):
 exp_cars = more_than_30k(cars)
 print(exp_cars)
 
+# exp = filter(lambda c: c['price'] > 30000, cars)
+# result = list(map(lambda c: {'make': c['make'], 'model': c['model'], 'owner_name':}))
 
 # 3. Используйте метод map() чтобы создать новый массив из владельцев
 # Пример:
