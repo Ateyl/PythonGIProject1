@@ -1,0 +1,2 @@
+pip freeze > '.\requirments.txt' добавляет в
+pip install -r скачает все библиотеки из папки
