@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, render_template, request, session
 from datetime import timedelta
 import hashlib
 from flask_sqlalchemy import SQLAlchemy
-from numpy.ma.extras import unique
+
 
 app = Flask(__name__)
 app.secret_key = 'hello'
@@ -46,12 +46,18 @@ def login():
                 return redirect(url_for('user_profile'))
             else:
                 return redirect(url_for('login'))
+        else:
+            new_user = User(user_name, user_pass, '')
+            db.session.add(new_user)
+            db.session.commit()
 
-        session['login'] = user_name
-        return redirect(url_for('user', name=user_name))
+            session['login'] = user_name
+            session['email'] =''
+            return redirect(url_for('user_profile'))
+
     else:
         if 'login' in session:
-            return redirect(url_for('user', name=session['login']))
+            return redirect(url_for('user_profile'))
         return render_template('login.html')
 
 @app.route('/<name>/')
