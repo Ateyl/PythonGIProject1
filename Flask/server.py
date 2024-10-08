@@ -1,7 +1,8 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, session
 from datetime import timedelta
 import hashlib
 from flask_sqlalchemy import SQLAlchemy
+from numpy.ma.extras import unique
 
 app = Flask(__name__)
 app.secret_key = 'hello'
@@ -10,6 +11,18 @@ app.permanent_session_lifetime = timedelta(seconds=10)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost/flask_python15gi'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    _id = db.Column('user_id', db.Integer, primary_key=True)
+    login = db.Column('login',db.String(20), unique=True)
+    password = db.Column('password', db.String(32))
+    email = db.Column('email', db.String(100))
+
+    def __init__(self, login, password, email):
+        self.login = login
+        self.password = password
+        self.email = email
 
 @app.route('/')
 def home():
@@ -22,10 +35,13 @@ def home():
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        session.permanent = True
         user_name = request.form['user-name']
         user_pass = hashlib.md5(request.form['user-pass'].encode()).hexdigest()
         return redirect(url_for('user', name=user_name))
     else:
+        if 'login' in session:
+            return redirect(url_for('user', name=session['login']))
         return render_template('login.html')
 
 @app.route('/<name>/')
@@ -45,4 +61,7 @@ def logout():
 
 
 if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
+
