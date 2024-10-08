@@ -38,6 +38,16 @@ def login():
         session.permanent = True
         user_name = request.form['user-name']
         user_pass = hashlib.md5(request.form['user-pass'].encode()).hexdigest()
+        user_in_db = User.query.filter_by(login=user_name).first()
+        if user_in_db:
+            if user_pass == user_in_db.password:
+                session['login'] = user_name
+                session['email'] = user_in_db.email
+                return redirect(url_for('user_profile'))
+            else:
+                return redirect(url_for('login'))
+
+        session['login'] = user_name
         return redirect(url_for('user', name=user_name))
     else:
         if 'login' in session:
