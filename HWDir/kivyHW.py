@@ -152,12 +152,13 @@ def menu():
 isikukood = ''
 # menu()
 
+# isikukood = ''
+
 class MyApp(App):
     def build(self):
         self.layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
 
-        #ввод ID
-        self.id_input = TextInput(hint_text="Enter your ID", multiline=False)
+        self.id_input = TextInput(hint_text='Enter your ID code', multiline=False)
         self.layout.add_widget(self.id_input)
 
         self.layout.add_widget(self.create_button("Get Gender", self.show_gender))
@@ -166,10 +167,6 @@ class MyApp(App):
         self.layout.add_widget(self.create_button("Validate ID", self.show_validation))
 
         return self.layout
-
-
-
-
 
     def create_button(self, text, action):
         button = Button(text=text, size_hint=(1, 0.2))
@@ -185,7 +182,7 @@ class MyApp(App):
         close_button.bind(on_press=popup.dismiss)
         popup.open()
 
-    def show_gender(self, instance):
+    def show_gender(self,instance):
         global isikukood
         isikukood = self.id_input.text
         if len(isikukood) == 11 and isikukood.isdigit():
@@ -203,7 +200,7 @@ class MyApp(App):
         else:
             self.show_popup('Error', 'Please enter a valid 11-digit ID code')
 
-    def show_birth_region(self, instance):
+    def show_birth_region(self,instance):
         global isikukood
         isikukood = self.id_input.text
         if len(isikukood) == 11 and isikukood.isdigit():
@@ -212,7 +209,7 @@ class MyApp(App):
         else:
             self.show_popup('Error', 'Please enter a valid 11-digit ID code')
 
-    def show_validation(self, instance):
+    def show_validation(self,instance):
         global isikukood
         isikukood = self.id_input.text
         if len(isikukood) == 11 and isikukood.isdigit():
@@ -221,5 +218,6 @@ class MyApp(App):
         else:
             self.show_popup('Error', 'Please enter a valid 11-digit ID code')
 
-if __name__ == "__main__":
+
+if __name__ == '__main__':
     MyApp().run()
